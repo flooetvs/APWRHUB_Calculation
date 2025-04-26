@@ -34,7 +34,7 @@ st.set_page_config(page_title="Voltage Drop Tool", layout="wide")
 # Function to add company logo at the top right
 def add_logo():
     # GitHub URL for the logo
-    github_logo_url = "https://github.com/flooetvs/APWRHUB_Calculation/blob/main/logo.png"
+    github_logo_url = "https://raw.githubusercontent.com/flooetvs/APWRHUB_Calculation/master/logo.png"
     
     try:
         # Get logo from GitHub
@@ -79,7 +79,7 @@ def add_logo():
 # Function to get the logo as a pillow image (for PDF export)
 def get_logo_image():
     # GitHub URL for the logo
-    github_logo_url = "https://github.com/flooetvs/APWRHUB_Calculation/blob/main/logo.png"
+    github_logo_url = "https://raw.githubusercontent.com/flooetvs/APWRHUB_Calculation/master/logo.png"
     
     try:
         # Get logo from GitHub
