@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import requests
 import math
 import matplotlib.pyplot as plt
 import base64
@@ -32,9 +33,16 @@ st.set_page_config(page_title="Voltage Drop Tool", layout="wide")
 
 # Function to add company logo at the top right
 def add_logo():
-    # Check if logo file exists
-    if os.path.exists("logo.png"):
-        logo = Image.open("logo.png")
+    # GitHub URL for the logo
+    github_logo_url = "https://github.com/flooetvs/APWRHUB_Calculation/blob/main/logo.png"
+    
+    try:
+        # Get logo from GitHub
+        response = requests.get(github_logo_url)
+        response.raise_for_status()  # Raise exception for HTTP errors
+        
+        # Convert response content to image
+        logo = Image.open(BytesIO(response.content))
         
         # Display logo in the top right corner using custom HTML/CSS
         logo_bytes = BytesIO()
@@ -58,23 +66,30 @@ def add_logo():
                 width: auto;
             }}
             </style>
-            
             <div class="logo-container">
                 <img class="logo-img" src="data:image/png;base64,{logo_base64}" alt="ActiveControl Logo">
             </div>
             """,
             unsafe_allow_html=True
         )
-    else:
-        print("Logo file not found. Please save logo.png in the same directory as the script.")
+    except Exception as e:
+        print(f"Error loading logo from GitHub: {e}")
+        print("Please make sure the logo.png is uploaded to your GitHub repository.")
 
 # Function to get the logo as a pillow image (for PDF export)
 def get_logo_image():
-    # Load logo from local file
-    if os.path.exists("logo.png"):
-        return Image.open("logo.png")
-    else:
-        print("Logo file not found for export. Please save logo.png in the same directory as the script.")
+    # GitHub URL for the logo
+    github_logo_url = "https://github.com/flooetvs/APWRHUB_Calculation/blob/main/logo.png"
+    
+    try:
+        # Get logo from GitHub
+        response = requests.get(github_logo_url)
+        response.raise_for_status()  # Raise exception for HTTP errors
+        
+        # Convert response content to image
+        return Image.open(BytesIO(response.content))
+    except Exception as e:
+        print(f"Error loading logo from GitHub for export: {e}")
         return None
 
 # PDF Export Function
